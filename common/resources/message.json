@@ -1,0 +1,18 @@
+{
+    "system": {
+        "sem0001": "Đã có lỗi xảy ra."
+    },
+    "user": {
+        "uvm0001": "Tên phải có ít nhất 5 ký tự.",
+        "uvm0002": "Email không hợp lệ.",
+        "uvm0003": "Mật khẩu phải có ít nhất 5 ký tự.",
+        "uvm0004": "Email hoặc người dùng đã tồn tại.",
+        "uvm0005": {
+            "a": "123",
+            "b": "234"
+        }
+    },
+    "auth": {
+        "avm0001": "Email hoặc mật khẩu không hợp lệ."
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "dbConfig": {
+        "host": "localhost",
+        "port": 27017,
+        "dbName": "blog-site"
+    },
+    "authConfig": {
+        "tokenHeader": "x-auth-token",
+        "jwtPrivateKey": "2E3[567@!D"
+    },
+    "users": {
+        "prefixUrlDetail": "/users",
+        "prefixUrlDetailApi": "/api/users"
+    }
+}
