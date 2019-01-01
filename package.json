@@ -7,6 +7,7 @@
     "start-dev": "export app_password=abcd1234 && NODE_ENV=development DEBUG=app:*  nodemon ./bin/www"
   },
   "dependencies": {
+    "app-root-path": "^2.1.0",
     "bcrypt": "^3.0.3",
     "config": "^3.0.1",
     "cookie-parser": "~1.4.3",
@@ -16,8 +17,11 @@
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
+    "moment": "^2.23.0",
     "mongoose": "^5.4.1",
     "morgan": "~1.9.0",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "winston": "^3.1.0",
+    "winston-mongodb": "^4.0.3"
   }
 }

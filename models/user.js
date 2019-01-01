@@ -24,7 +24,8 @@ const userSchema = new mongoose.Schema({
         minlength: 5,
         maxlength: 1024,
         unique: true
-    }
+    },
+    isAdmin: Boolean
 });
 
 userSchema.methods.isValidPassword = async function (reqPassword) {
@@ -37,7 +38,8 @@ userSchema.methods.isValidPassword = async function (reqPassword) {
 
 userSchema.methods.generateToken = function () {
     const token = jwt.sign({
-        _id: this._id
+        _id: this._id,
+        isAdmin: this.isAdmin
     }, config.get('authConfig.jwtPrivateKey'));
     return token;
 }

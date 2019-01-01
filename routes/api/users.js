@@ -1,15 +1,28 @@
 const config = require('config');
 const _ = require('lodash');
 const asyncMiddleware = require('../../middlewares/async');
+const { auth, admin } = require('../../middlewares/authentication');
 const { User, validate } = require('../../models/user');
 const AppError = require('../../common/error/AppError');
 var express = require('express');
 var router = express.Router();
 
+/* TEMPLATE Request */
+// router.get('/template', asyncMiddleware(async (req, res) => {
+//     res.send('respond with a resource');
+// }));
+
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
-});
+router.get('/', [auth, admin], asyncMiddleware(async (req, res) => {
+    let users = await User.find().select('-password');
+    res.json(users);
+}));
+
+/* GET current user. */
+router.get('/me', auth, asyncMiddleware(async (req, res) => {
+    let user = await User.findById(req.user._id).select('-password');
+    res.json(user);
+}));
 
 /* REGISTER user. */
 router.post('/', asyncMiddleware(async (req, res) => {

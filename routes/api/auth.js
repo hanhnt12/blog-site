@@ -17,12 +17,12 @@ router.post('/', asyncMiddleware(async (req, res) => {
     // Check existing user
     let user = await User.findOne({ email: req.body.email });
     if (!user) {
-        throw new AppError('user.avm0001', 400);
+        throw new AppError('auth.avm0001', 400);
     }
 
     // Validate password
     if (!await user.isValidPassword(req.body.password)) {
-        throw new AppError('user.avm0001', 400);
+        throw new AppError('auth.avm0001', 400);
     }
 
     // Create authentication token
@@ -31,15 +31,15 @@ router.post('/', asyncMiddleware(async (req, res) => {
     // Response
     res.header(config.get('authConfig.tokenHeader'), token);
     res.json({
-        success: true
+        token
     });
 })
 );
 
 function validate(req) {
     const schema = {
-        email: Joi.string().min(5).max(255).required().email(),
-        password: Joi.string().min(5).max(255).required()
+        email: Joi.string().required().email().error(new Error('user.uvm0002')),
+        password: Joi.string().max(255).required().error(new Error('user.uvm0003'))
     }
     return Joi.validate(req, schema);
 }

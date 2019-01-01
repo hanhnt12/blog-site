@@ -8,18 +8,12 @@ const dbName = config.get('dbConfig.dbName');
 const username = config.get('dbConfig.username');
 const password = config.get('dbConfig.password');
 
-debug(`host: ${host}`);
-debug(`port: ${port}`);
-debug(`dbName: ${dbName}`);
-debug(`username: ${username}`);
-debug(`password: ${password}`);
-debug(`Connection string: mongodb://${username}:${password}@${host}:${port}/${dbName}?authSource=admin`);
+let connectionString = `mongodb://${username}:${password}@${host}:${port}/${dbName}?authSource=admin`;
 
-module.exports = function() {
-  mongoose
-    .connect(
-      `mongodb://${username}:${password}@${host}:${port}/${dbName}?authSource=admin`,
-      { useNewUrlParser: true }
-    )
-    .then(() => debug('Connected to mongodb.'));
+module.exports.connectionString = connectionString;
+
+module.exports.connect = function() {
+    mongoose.connect(connectionString, {
+          useNewUrlParser: true
+    }).then(() => debug('Connected to mongodb.'));
 };

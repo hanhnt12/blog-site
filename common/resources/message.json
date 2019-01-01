@@ -1,18 +1,17 @@
 {
     "system": {
-        "sem0001": "Đã có lỗi xảy ra."
+        "sem0001": "Đã có lỗi xảy ra.",
+        "sem0002": "Không tìm thấy trang."
     },
     "user": {
         "uvm0001": "Tên phải có ít nhất 5 ký tự.",
         "uvm0002": "Email không hợp lệ.",
         "uvm0003": "Mật khẩu phải có ít nhất 5 ký tự.",
-        "uvm0004": "Email hoặc người dùng đã tồn tại.",
-        "uvm0005": {
-            "a": "123",
-            "b": "234"
-        }
+        "uvm0004": "Email hoặc người dùng đã tồn tại."
     },
     "auth": {
-        "avm0001": "Email hoặc mật khẩu không hợp lệ."
+        "avm0001": "Email hoặc mật khẩu không hợp lệ.",
+        "avm0002": "Truy cập bị từ chối.",
+        "avm0003": "Người dùng không hợp lệ."
     }
 }
