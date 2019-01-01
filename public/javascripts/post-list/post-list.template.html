@@ -1,0 +1,26 @@
+<!-- post -->
+<div class="row" ng-repeat="post in $ctrl.posts">
+    <div ng-class="$ctrl.postWrapperClass($index)"> <!-- <div class="col-md-6"> -->
+        <div ng-class="$ctrl.postInnerClass($index)"> <!-- <div class="post"> <div class="post post-row"> --> 
+            <a class="post-img" href="{{ post.permarkLink }}"><img src="./img/post-1.jpg" alt=""></a>
+            <div class="post-body">
+                <div class="post-meta">
+                    <a class="post-category cat-2" href="#">JavaScript</a>
+                    <span class="post-date">{{ post.createDate | date:'MM/dd/yyyy'}}</span>
+                </div>
+                <h3 class="post-title"><a href="{{ post.permarkLink }}">{{ post.title }}</a></h3>
+            </div>
+        </div>
+    </div>
+    <div ng-if="$index === 0" class="clearfix visible-md visible-lg"></div>
+							
+    <!-- ad -->
+    <div ng-if="$index === 0" class="col-md-12">
+        <div class="section-row">
+            <a href="#">
+                <img class="img-responsive center-block" src="./img/ad-2.jpg" alt="">
+            </a>
+        </div>
+    </div>
+    <!-- ad -->
+</div>

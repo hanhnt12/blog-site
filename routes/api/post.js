@@ -11,7 +11,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET posts listing. */
-router.get('/', [auth, admin], asyncMiddleware(async (req, res) => {
+router.get('/', asyncMiddleware(async (req, res) => {
     let search = {};
     let posts = await Post.find(search)
         .populate('author', 'name')

@@ -20,6 +20,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// boostrap, jquery, angular
+app.use('/lib/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
+app.use('/lib/css', express.static(path.join(__dirname, '/node_modules/font-awesome/css/')));
+app.use('/lib/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
+app.use('/lib/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
+app.use('/lib/js', express.static(path.join(__dirname, '/node_modules/angular')));
 
 // route
 require('./startup/router')(app);

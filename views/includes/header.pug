@@ -1,0 +1,90 @@
+// Header
+header#header
+  // Nav
+  #nav
+    // Main Nav
+    #nav-fixed
+      .container
+        // logo
+        .nav-logo
+          a.logo(href='index.html')
+            img(src='./img/logo.png', alt='')
+        // nav
+        ul.nav-menu.nav.navbar-nav
+          li
+            a(href='category.html') News
+          li
+            a(href='category.html') Popular
+          li.cat-1
+            a(href='category.html') Web Design
+          li.cat-2
+            a(href='category.html') JavaScript
+          li.cat-3
+            a(href='category.html') Css
+          li.cat-4
+            a(href='category.html') Jquery
+        // search & aside toggle
+        .nav-btns
+          button.aside-btn
+            i.fa.fa-bars
+          button.search-btn
+            i.fa.fa-search
+          .search-form
+            input.search-input(type='text', name='search', placeholder='Enter Your Search ...')
+            button.search-close
+              i.fa.fa-times
+        // Aside Nav
+        #nav-aside
+          // nav
+          .section-row
+            ul.nav-aside-menu
+              li
+                a(href='index.html') Home
+              li
+                a(href='about.html') About Us
+              li
+                a(href='#') Join Us
+              li
+                a(href='#') Advertisement
+              li
+                a(href='contact.html') Contacts
+          // widget posts
+          .section-row
+            h3 Recent Posts
+            .post.post-widget
+              a.post-img(href='blog-post.html')
+                img(src='./img/widget-2.jpg', alt='')
+              .post-body
+                h3.post-title
+                  a(href='blog-post.html') Pagedraw UI Builder Turns Your Website Design Mockup Into Code Automatically
+            .post.post-widget
+              a.post-img(href='blog-post.html')
+                img(src='./img/widget-3.jpg', alt='')
+              .post-body
+                h3.post-title
+                  a(href='blog-post.html') Why Node.js Is The Coolest Kid On The Backend Development Block!
+            .post.post-widget
+              a.post-img(href='blog-post.html')
+                img(src='./img/widget-4.jpg', alt='')
+              .post-body
+                h3.post-title
+                  a(href='blog-post.html') Tell-A-Tool: Guide To Web Design And Development Tools
+          // social links
+          .section-row
+            h3 Follow us
+            ul.nav-aside-social
+              li
+                a(href='#')
+                  i.fa.fa-facebook
+              li
+                a(href='#')
+                  i.fa.fa-twitter
+              li
+                a(href='#')
+                  i.fa.fa-google-plus
+              li
+                a(href='#')
+                  i.fa.fa-pinterest
+          // aside nav close
+          button.nav-aside-close
+            i.fa.fa-times

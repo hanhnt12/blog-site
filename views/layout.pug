@@ -1,7 +1,29 @@
 doctype html
-html
+html(ng-app="blogApp")
   head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
     title= title
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Nunito+Sans:700%7CNunito:300,600')
+    link(rel='stylesheet', href='/lib/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/lib/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/lib/js/jquery.min.js')
+    script(src='/lib/js/bootstrap.min.js')
+    script(src='/lib/js/angular.min.js')
+    script(src='/javascripts/app.module.js')
+    block scripts
   body
-    block content
+    include includes/header.pug
+    // section
+    .section
+      // container
+      .container
+        // row
+        .row
+          .col-md-8
+            block content
+          .col-md-4
+            include includes/sidebar.pug
+    include includes/footer.pug
