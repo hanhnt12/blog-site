@@ -9,7 +9,7 @@ module.exports = function (err, req, res, next) {
     let status = err.status || 500;
     res.status(status);
     logger.info(err);
-    if (status >= 404) {
+    if (status >= 404 || err.type !== 'validate') {
         logger.error(err.stack);
     }
 

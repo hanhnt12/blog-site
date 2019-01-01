@@ -13,5 +13,9 @@
         "avm0001": "Email hoặc mật khẩu không hợp lệ.",
         "avm0002": "Truy cập bị từ chối.",
         "avm0003": "Người dùng không hợp lệ."
+    },
+    "post": {
+        "pvm0001": "Tiêu đề  là bắt buộc nhập và phải có ít nhất 5 ký tự.",
+        "pvm0002": "Nội dung bài viết là bắt buộc nhập."
     }
 }

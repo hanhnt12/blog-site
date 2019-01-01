@@ -55,6 +55,13 @@ var logger = createLogger({
             maxsize: 5242880, // 5MB
             maxFiles: 5
         }),
+        new transports.File({
+            level: 'debug',
+            filename: `${appRoot}/logs/debug.log`,
+            json: true,
+            maxsize: 5242880, // 5MB
+            maxFiles: 5
+        }),
         new transports.File(options.fileInfo)
     ],
     exitOnError: false, // do not exit on handled exceptions

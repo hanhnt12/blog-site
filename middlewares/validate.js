@@ -1,19 +1,16 @@
-const _ = require('lodash');
+const AppError = require('../common/error/AppError');
 
-function makeValidate(req, res, validate) {
-
-    if (!_.isFunction(validate)) {
-        return;
-    }
-
-    const { error } = validate(req.body);
-
-    if (error) {
-        const objError = {
-            message: message
+module.exports = function (validate) {
+    return async (req, res, next) => {
+        try {
+            // Validate request
+            const { error } = validate(req.body);
+            if (error) {
+                throw new AppError(error.message || error.details[0].message, 400);
+            }
+            next();
+        } catch (err) {
+            next(err);
         }
     }
-    return makeApiResponse(objError, res, 400);
 }
-
-exports.makeValidate = makeValidate;

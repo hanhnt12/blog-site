@@ -11,5 +11,13 @@
     "users": {
         "prefixUrlDetail": "/users",
         "prefixUrlDetailApi": "/api/users"
+    },
+    "posts": {
+        "prefixUrlDetail": "/posts",
+        "prefixUrlDetailApi": "/api/posts",
+        "recordPerPage": 10
+    },
+    "pagging": {
+        "recordPerPage": 20
     }
 }
