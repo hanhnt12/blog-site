@@ -7,7 +7,10 @@ const { validate } = require('../../models/post');
 const postController = require('../../controllers/postController');
 
 /* GET posts listing. */
-router.get('/', postController.postList);
+router.get('/', postController.postListSearch, postController.postList);
+
+/* Search posts listing. */
+router.post('/search', postController.postListSearch, postController.postList);
 
 /* GET post by id or permark link. */
 router.get('/:id', auth, postController.postDetail);

@@ -1,21 +1,90 @@
+const config = require('config');
+const _ = require('lodash');
+
 const asyncMiddleware = require('../middlewares/async');
 const { Post } = require('../models/post');
 const AppError = require('../common/error/AppError');
 const logger = require('../startup/logging');
 const { isValidObjectId } = require('../common/utils');
-const _ = require('lodash');
 
 /** Get list post */
 exports.postList = asyncMiddleware(async (req, res) => {
-    let search = {};
-    let posts = await Post.find(search)
+    logger.info(`Request post search condition:`);
+    logger.info(req.prePostCondition);
+    console.log(req.prePostCondition);
+    if (!req.prePostCondition) {
+        throw new AppError('system.sem0004', 500);
+    }
+    // Get from pre search request
+    let { search, skip, limit, sort } = req.prePostCondition;
+
+    // Count number of records to pagging
+    let totalPromise = Post.find(search || {}).count();
+    let postsPromise = Post.find(search || {})
         .populate('author', 'name')
-        .sort({ createDate: -1 })
-        // .skip(10)
-        // .limit(config.get('posts.recordPerPage') || config.get('pagging.recordPerPage'))
+        .skip(skip)
+        .limit(limit)
+        .sort(sort)
         .select('-content');
+    let [total, posts] = [await totalPromise, await postsPromise];
     //res.json(posts);
-    res.responseData = posts;
+    res.responseData = {
+        total,
+        list: posts
+    };
+});
+
+/** Middleware create search condition for post list */
+/**
+ * Sample request search object
+ *  // {
+    //     "keyword": "test keyword",
+    //     "page": 1,   // START PAGE is 1
+    //     "perPage": 20
+    //     "orderBy": {
+    //          "mostView": 1, // ASC
+    //          "createDate": -1 // DESC
+    //      }
+    // }
+ */
+exports.postListSearch = asyncMiddleware(async (req, res) => {
+    let { keyword, page, perPage, orderBy, isPublished } =
+        _.pick(req.body, ['keyword', 'page', 'perPage', 'orderBy', 'isPublished']);
+    // Create search post
+    // Default is post that published
+    logger.info(`Search condition isPublished: ${isPublished}`);
+    let search = {
+        isPublished: _.isUndefined(isPublished) ? true : isPublished
+    };
+    if (keyword) {
+        search.title = keyword;
+    }
+
+    // pagging: default 20 record per page
+    if (!page || isNaN(page) || page <= 0) {
+        page = config.get('pagging.startPage') || 1;
+    }
+    if (!perPage || isNaN(perPage) || perPage <= 0) {
+        perPage = config.get('pagging.recordPerPage') || 20;
+    }
+    // Starting row
+    let skip = (page - 1) * perPage;
+    // Number of row response
+    let limit = perPage;
+
+    // Create sort post
+    let sort = {};
+    if (!_.isEmpty(orderBy)) {
+        // copy object
+        Object.assign(sort, orderBy);
+    }
+    // Default is time create DESC
+    if (!sort.hasOwnProperty('createDate')) {
+        sort.createDate = -1;
+    }
+
+    req.prePostCondition = { search, skip, limit, sort };
+    // asyncMiddleware will auto next
 });
 
 /** Create new post */

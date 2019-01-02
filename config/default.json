@@ -18,6 +18,7 @@
         "recordPerPage": 10
     },
     "pagging": {
+        "startPage": 1,
         "recordPerPage": 20
     }
 }
