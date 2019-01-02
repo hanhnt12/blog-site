@@ -1,19 +1,16 @@
-const Joi = require('joi');
-const config = require('config');
-const asyncMiddleware = require('../../middlewares/async');
-const { User } = require('../../models/user');
-const AppError = require('../../common/error/AppError');
 var express = require('express');
 var router = express.Router();
 
-/* AUTHENTICATION user. */
-router.post('/', asyncMiddleware(async (req, res) => {
-    // Validate request
-    const { error } = validate(req.body);
-    if (error) {
-        throw new AppError(error.message || error.details[0].message, 400);
-    }
+const Joi = require('joi');
+const config = require('config');
 
+const asyncMiddleware = require('../../middlewares/async');
+const validateMiddleware = require('../../middlewares/validate');
+const { User } = require('../../models/user');
+const AppError = require('../../common/error/AppError');
+
+/* AUTHENTICATION user. */
+router.post('/', validateMiddleware(validate), asyncMiddleware(async (req, res) => {
     // Check existing user
     let user = await User.findOne({ email: req.body.email });
     if (!user) {
@@ -33,8 +30,7 @@ router.post('/', asyncMiddleware(async (req, res) => {
     res.json({
         token
     });
-})
-);
+}));
 
 function validate(req) {
     const schema = {
