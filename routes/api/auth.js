@@ -27,9 +27,9 @@ router.post('/', validateMiddleware(validate), asyncMiddleware(async (req, res) 
 
     // Response
     res.header(config.get('authConfig.tokenHeader'), token);
-    res.json({
-        token
-    });
+
+    // res.json({ token });
+    res.responseData = { token };
 }));
 
 function validate(req) {

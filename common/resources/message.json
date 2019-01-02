@@ -1,7 +1,8 @@
 {
     "system": {
         "sem0001": "Đã có lỗi xảy ra.",
-        "sem0002": "Không tìm thấy trang."
+        "sem0002": "Không tìm thấy trang.",
+        "sem0003": "Không tìm thấy kết quả trả về."
     },
     "user": {
         "uvm0001": "Tên phải có ít nhất 5 ký tự.",

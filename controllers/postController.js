@@ -14,7 +14,8 @@ exports.postList = asyncMiddleware(async (req, res) => {
         // .skip(10)
         // .limit(config.get('posts.recordPerPage') || config.get('pagging.recordPerPage'))
         .select('-content');
-    res.json(posts);
+    //res.json(posts);
+    res.responseData = posts;
 });
 
 /** Create new post */
@@ -26,7 +27,8 @@ exports.postCreate = asyncMiddleware(async (req, res) => {
     await post.save();
 
     // Response
-    res.json(_.pick(post, ['_id', 'title', 'permarkLink', 'createDate', 'isPublished']));
+    // res.json(_.pick(post, ['_id', 'title', 'permarkLink', 'createDate', 'isPublished']));
+    res.responseData = _.pick(post, ['_id', 'title', 'permarkLink', 'createDate', 'isPublished']);
 });
 
 /** Get post detail by id or permark link */
@@ -48,7 +50,8 @@ exports.postDetail = asyncMiddleware(async (req, res) => {
     post.incrementView();
     post.save();
     // Response
-    res.json(post);
+    // res.json(post);
+    res.responseData = post;
 });
 
 /** Update post by id or permark link */
@@ -72,5 +75,8 @@ exports.postUpdate = asyncMiddleware(async (req, res) => {
     } else {
         post = await Post.findOneAndUpdate({ permarkLink: id }, updatingPost, { new: true });
     }
-    res.json(post);
+    
+    // Response
+    // res.json(post);
+    res.responseData = post;
 });

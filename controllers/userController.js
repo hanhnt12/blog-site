@@ -7,13 +7,15 @@ const AppError = require('../common/error/AppError');
 /* GET users listing. */
 exports.userList = asyncMiddleware(async (req, res) => {
     let users = await User.find().select('-password');
-    res.json(users);
+    // res.json(users);
+    res.responseData = users;
 });
 
 /* GET current user. */
 exports.userCurrent = asyncMiddleware(async (req, res) => {
     let user = await User.findById(req.user._id).select('-password');
-    res.json(user);
+    // res.json(user);
+    res.responseData = user;
 });
 
 /* REGISTER user. */
@@ -34,6 +36,7 @@ exports.userCreate = asyncMiddleware(async (req, res) => {
 
     // Response
     res.header(config.get('authConfig.tokenHeader'), token);
-    res.json(_.pick(user, ['_id', 'name', 'email']));
+    // res.json(_.pick(user, ['_id', 'name', 'email']));
+    res.responseData = _.pick(user, ['_id', 'name', 'email']);
 });
 

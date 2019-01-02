@@ -5,13 +5,14 @@ var cookieParser = require('cookie-parser');
 const logger = require('./startup/logging');
 var morgan = require('morgan');
 const error = require('./middlewares/error');
+const responseBuilder = require('./middlewares/responseBuilder');
 
 var app = express();
 
-// Logging
-app.use(morgan('combined', { stream: logger.stream }));
 // DB
 require('./startup/db').connect();
+// Logging
+app.use(morgan('combined', { stream: logger.stream }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,9 +31,12 @@ app.use('/lib/js', express.static(path.join(__dirname, '/node_modules/angular'))
 // route
 require('./startup/router')(app);
 
+// build response API
+app.all('*', responseBuilder);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    logger.debug('Test message debug');
+    logger.info(`Catching error 404 - Not found...`);
     next(createError(404));
 });
 
