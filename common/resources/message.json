@@ -18,6 +18,7 @@
     },
     "post": {
         "pvm0001": "Tiêu đề  là bắt buộc nhập và phải có ít nhất 5 ký tự.",
-        "pvm0002": "Nội dung bài viết là bắt buộc nhập."
+        "pvm0002": "Nội dung bài viết là bắt buộc nhập.",
+        "pvm0003": "Xuất bản bài viết không hợp lệ."
     }
 }

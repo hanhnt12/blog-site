@@ -3,7 +3,7 @@ var router = express.Router();
 
 const { auth, admin } = require('../../middlewares/authentication');
 const validateMiddleware = require('../../middlewares/validate');
-const { validate } = require('../../models/post');
+const { validate, validateUpdate } = require('../../models/post');
 const postController = require('../../controllers/postController');
 
 /* GET posts listing. */
@@ -16,7 +16,7 @@ router.post('/search', postController.postListSearch, postController.postList);
 router.get('/:id', auth, postController.postDetail);
 
 /* UPDATE post by id or permark link. */
-router.put('/:id', [auth, validateMiddleware(validate)], postController.postUpdate);
+router.put('/:id', [auth, validateMiddleware(validateUpdate)], postController.postUpdate);
 
 /* REGISTER post. */
 router.post('/', [auth, admin, validateMiddleware(validate)], postController.postCreate);

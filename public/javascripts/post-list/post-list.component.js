@@ -7,7 +7,11 @@ angular
             $http
                 .get('/api/posts')
                 .then((response) => {
-                    this.posts = response.data;
+                    if (response.data.success) {
+                        this.posts = response.data.responseData.list;
+                    } else {
+                        throw new Error(response.data.message);
+                    }
                 })
                 .catch((err) => {
                     alert(err.message);

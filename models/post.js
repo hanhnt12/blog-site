@@ -1,6 +1,8 @@
-const { generatePermarkLink } = require('../common/utils');
-const Joi = require('joi');
 const mongoose = require('mongoose');
+const Joi = require('joi');
+const config = require('config');
+
+const { generatePermarkLink } = require('../common/utils');
 
 const postSchema = new mongoose.Schema({
     author: {
@@ -48,6 +50,11 @@ const postSchema = new mongoose.Schema({
     }
 });
 
+postSchema.set('toJSON', {
+    getters: true,
+    virtuals: true
+});
+
 postSchema.methods.incrementView = function () {
     this.view++;
 }
@@ -55,13 +62,14 @@ postSchema.methods.incrementView = function () {
 postSchema
     .virtual('detailUrl')
     .get(function() {
-        return config.get('posts.prefixUrlDetail') + '/' + this._id
+        return config.get('posts.prefixUrlDetail') + '/' + this.permarkLink;
     });
 
 postSchema
     .virtual('detailUrlApi')
-    .get(function() {
-        return config.get('posts.prefixUrlDetailApi') + '/' + this._id
+    .get(function () {
+        // return url.resolve(config.get('posts.prefixUrlDetailApi'), '/', this.permarkLink);
+        return config.get('posts.prefixUrlDetailApi') + '/' + this.permarkLink;
     });
 
 const Post = mongoose.model('Post', postSchema);
@@ -69,10 +77,21 @@ const Post = mongoose.model('Post', postSchema);
 function validatePost(post) {
     const schema = {
         title: Joi.string().min(5).max(255).required().error(new Error('post.pvm0001')),
-        content: Joi.string().min(5).required().error(new Error('post.pvm0002'))
+        content: Joi.string().min(5).required().error(new Error('post.pvm0002')),
+        isPublished: Joi.boolean().error(new Error('post.pvm0003'))
     }
     return Joi.validate(post, schema);
 }
 
+function validateUpdate(req) {
+    const schema = {
+        title: Joi.string().min(5).max(255).error(new Error('post.pvm0001')),
+        content: Joi.string().min(5).error(new Error('post.pvm0002')),
+        isPublished: Joi.boolean().error(new Error('post.pvm0003'))
+    }
+    return Joi.validate(req, schema);
+}
+
 exports.Post = Post;
 exports.validate = validatePost;
+exports.validateUpdate = validateUpdate;
