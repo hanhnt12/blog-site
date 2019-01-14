@@ -5,7 +5,11 @@ angular
         templateUrl: '/javascripts/post-list/post-list.template.html',
         controller: function PostListController($http) {
             $http
-                .get('/api/posts')
+                .post('/api/posts/search', {
+                    "orderBy": {
+                        "createDate": -1
+                    }
+                })
                 .then((response) => {
                     if (response.data.success) {
                         this.posts = response.data.responseData.list;

@@ -130,6 +130,10 @@ exports.postUpdate = asyncMiddleware(async (req, res) => {
     // Create post to update
     let newPost = _.pick(req.body, ['title', 'content', 'isPublished']);
     newPost.updateBy = req.user._id;
+    if (newPost.isPublished) {
+        newPost.publishDate = new Date.now();
+        logger.debug(`Published date: ${newPost.publishDate}`);
+    }
     logger.debug('Update post:');
     logger.debug(newPost);
     let updatingPost = {

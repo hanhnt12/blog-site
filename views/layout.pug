@@ -7,13 +7,22 @@ html(ng-app="blogApp")
     title= title
     link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Nunito+Sans:700%7CNunito:300,600')
     link(rel='stylesheet', href='/lib/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/lib/css/font-awesome.min.css')
+    //link(rel='stylesheet', href='/lib/css/font-awesome.min.css')
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/lib/js/jquery.min.js')
     script(src='/lib/js/bootstrap.min.js')
     script(src='/lib/js/angular.min.js')
+    //script(src='/lib/js/angular-route.min.js')
     script(src='/javascripts/app.module.js')
+    //script(src='/javascripts/app.config.js')
     block scripts
+    script(src='/javascripts/post-list/post-list.module.js')
+    script(src='/javascripts/post-list/post-list.component.js')
+    script(src='/javascripts/post-detail/post-detail.module.js')
+    script(src='/javascripts/post-detail/post-detail.component.js')
+    script(src='/javascripts/side-bar/most-view/most-view.module.js')
+    script(src='/javascripts/side-bar/most-view/most-view.component.js')
   body
     include includes/header.pug
     // section

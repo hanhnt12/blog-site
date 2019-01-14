@@ -8,11 +8,13 @@
   },
   "dependencies": {
     "angular": "^1.7.5",
+    "angular-route": "^1.7.5",
     "app-root-path": "^2.1.0",
     "bcrypt": "^3.0.3",
     "bootstrap": "^3.3.7",
     "config": "^3.0.1",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
     "debug": "~4.1.1",
     "express": "~4.16.0",
     "font-awesome": "^4.7.0",

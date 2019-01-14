@@ -2,12 +2,14 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const cors = require('cors')
 const logger = require('./startup/logging');
 var morgan = require('morgan');
 const error = require('./middlewares/error');
 const responseBuilder = require('./middlewares/responseBuilder');
 
 var app = express();
+app.use(cors());
 
 // DB
 require('./startup/db').connect();
@@ -27,6 +29,7 @@ app.use('/lib/css', express.static(path.join(__dirname, '/node_modules/font-awes
 app.use('/lib/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
 app.use('/lib/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
 app.use('/lib/js', express.static(path.join(__dirname, '/node_modules/angular')));
+app.use('/lib/js', express.static(path.join(__dirname, '/node_modules/angular-route')));
 
 // route
 require('./startup/router')(app);

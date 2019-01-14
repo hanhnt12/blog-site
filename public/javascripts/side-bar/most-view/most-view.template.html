@@ -1,0 +1,8 @@
+<!-- post -->
+<div ng-repeat="post in $ctrl.posts" class="post post-widget">
+    <a class="post-img" href="{{ post.detailUrl }}"><img src="./img/widget-1.jpg" alt=""></a>
+    <div class="post-body">
+        <h3 class="post-title"><a href="{{ post.detailUrl }}">{{ post.title }}</a></h3>
+        <div><i class="fa fa-eye"></i> {{ post.view }}</div>
+    </div>
+</div>
