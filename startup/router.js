@@ -1,9 +1,10 @@
-var indexRouter = require('../routes/index');
-var usersRouter = require('../routes/users');
-var usersApiRouter = require('../routes/api/users');
-var authApiRouter = require('../routes/api/auth');
-var postApiRouter = require('../routes/api/post');
-var postRouter = require('../routes/post');
+const indexRouter = require('../routes/index');
+const usersRouter = require('../routes/users');
+const postRouter = require('../routes/post');
+const usersApiRouter = require('../routes/api/users');
+const authApiRouter = require('../routes/api/auth');
+const postApiRouter = require('../routes/api/post');
+const uploadRouter = require('../routes/api/upload');
 
 module.exports = function (app) {
     app.use('/', indexRouter);
@@ -13,6 +14,7 @@ module.exports = function (app) {
     app.use('/api/users', usersApiRouter);
     app.use('/api/auth', authApiRouter);
     app.use('/api/posts', postApiRouter);
+    app.use('/api/upload', uploadRouter);
 
     /* PAGE ROUTER */
     app.use('/posts', postRouter);

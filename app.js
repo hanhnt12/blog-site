@@ -15,6 +15,8 @@ app.use(cors());
 require('./startup/db').connect();
 // Logging
 app.use(morgan('combined', { stream: logger.stream }));
+// App root directory
+global.PROJECT_DIR = path.resolve(__dirname);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

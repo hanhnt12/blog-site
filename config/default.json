@@ -15,7 +15,13 @@
     "posts": {
         "prefixUrlDetail": "/posts",
         "prefixUrlDetailApi": "/api/posts",
-        "recordPerPage": 10
+        "recordPerPage": 10,
+        "upload": {
+            "ext": ["png", "jpg", "jpeg"],
+            "size": 2097152,
+            "tmpUploadDir": "upload/tmp",
+            "uploadDir": "upload"
+        }
     },
     "pagging": {
         "startPage": 1,
