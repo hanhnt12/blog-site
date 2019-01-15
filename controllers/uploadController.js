@@ -16,6 +16,7 @@ exports.upload = asyncMiddleware(async (req, res) => {
     let form = new formidable.IncomingForm();
     // Sets the directory for placing file uploads in. 
     form.uploadDir = path.join(PROJECT_DIR, config.get('posts.upload.tmpUploadDir'));
+    form.maxFileSize = config.get('posts.upload.size');
     form.keepExtensions = true;
 
     const { oldFile, newFile } = await uploadFile(form, req);
@@ -42,16 +43,17 @@ function uploadFile(form, req) {
             logger.debug(`Begin upload file...`);
             if (err) {
                 logger.error(`Has error when upload file: ${err}`);
-                return reject(new AppError('post.pvm0007', 400));
+                if (err.message.indexOf('maxFileSize') >= 0) {
+                   return reject(new AppError('post.pvm0005', 400)); 
+                } else {
+                    return reject(new AppError('post.pvm0007', 400));
+                }
             }
             const fileExt = files.file.name.split('.').pop();
             if (config.get('posts.upload.ext').indexOf(fileExt) < 0) {
                 return reject(new AppError('post.pvm0006', 400));
             }
-            const fileSize = files.file.size;
-            if (fileSize > config.get('posts.upload.size')) {
-                return reject(new AppError('post.pvm0005', 400));
-            }
+
             let oldFile = files.file.path;
             let newFile = path.join(PROJECT_DIR, config.get('posts.upload.uploadDir'), generateFileName(files.file.name));
             resolve({ oldFile, newFile });
