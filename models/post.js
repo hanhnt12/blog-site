@@ -15,6 +15,10 @@ const postSchema = new mongoose.Schema({
         minlength: 5,
         maxlength: 255
     },
+    imgPath: {
+        type: String
+    },
+    tags: [String],
     permarkLink: {
         type: String,
         default: function () {
@@ -78,6 +82,8 @@ function validatePost(post) {
     const schema = {
         title: Joi.string().min(5).max(255).required().error(new Error('post.pvm0001')),
         content: Joi.string().min(5).required().error(new Error('post.pvm0002')),
+        imgPath: Joi.string().error(new Error('post.pvm0008')),
+        tags: Joi.array().items(Joi.string()).error(new Error('post.pvm0009')),
         isPublished: Joi.boolean().error(new Error('post.pvm0003'))
     }
     return Joi.validate(post, schema);
@@ -87,6 +93,8 @@ function validateUpdate(req) {
     const schema = {
         title: Joi.string().min(5).max(255).error(new Error('post.pvm0001')),
         content: Joi.string().min(5).error(new Error('post.pvm0002')),
+        imgPath: Joi.string().error(new Error('post.pvm0008')),
+        tags: Joi.array().items(Joi.string()).error(new Error('post.pvm0009')),
         isPublished: Joi.boolean().error(new Error('post.pvm0003'))
     }
     return Joi.validate(req, schema);

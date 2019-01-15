@@ -23,6 +23,8 @@
         "pvm0004": "Upload thất bại. Thông số loại nội dung không chính xác.",
         "pvm0005": "Upload thất bại. Kích thước file tối đa là 2MB..",
         "pvm0006": "Upload thất bại. File upload là jpg, jpeg, png.",
-        "pvm0007": "Upload thất bại. Đã xảy ra lỗi."
+        "pvm0007": "Upload thất bại. Đã xảy ra lỗi.",
+        "pvm0008": "Đường dẫn hình ảnh không hợp lệ",
+        "pvm0009": "Tags không hợp lệ.(Array)"
     }
 }

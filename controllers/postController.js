@@ -128,18 +128,26 @@ exports.postUpdate = asyncMiddleware(async (req, res) => {
     let id = req.params.id;
     let post;
     // Create post to update
-    let newPost = _.pick(req.body, ['title', 'content', 'isPublished']);
+    let newPost = _.pick(req.body, ['title', 'content', 'isPublished', 'imgPath', 'tags']);
     newPost.updateBy = req.user._id;
     if (newPost.isPublished) {
-        newPost.publishDate = new Date.now();
+        newPost.publishDate = Date.now();
         logger.debug(`Published date: ${newPost.publishDate}`);
     }
+    
     logger.debug('Update post:');
     logger.debug(newPost);
     let updatingPost = {
         $set: newPost,
         $currentDate: {
             updateDate: true,
+        }
+    }
+
+    // When unpublish post
+    if (newPost.isPublished === false) {
+        updatingPost.$unset = {
+            publishDate: 1
         }
     }
     // Update post
